@@ -44,9 +44,11 @@ def hhdb_install():
     hhdb_unzip(filename)
 
 class BlitsAndPottsRunner(threading.Thread):
-    def __init__(s, domain, **kwargs):
+    def __init__(s, domain, include_potts, **kwargs):
         threading.Thread.__init__(s)
-        s.includePotts = True
+        s.includePotts = include_potts
+        if not s.includePotts:
+            print("Running without potts extraction...")
         s.out_dir = pconf.basedir + domain + "/"
         s.fasta = s.out_dir + domain + ".fasta"
         s.domain = domain

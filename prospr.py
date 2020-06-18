@@ -88,8 +88,11 @@ def build(args):
             elif res == "n":
                 print("please install a database for hhblits in your " + pconf.basedir +"hhblits directory")
                 return
-
-    b = BlitsAndPottsRunner(args.domain, n_threads=args.threads)
+    if args.network == 'no-potts':
+        include_potts = False
+    else:
+        include_potts = True
+    b = BlitsAndPottsRunner(args.domain, include_potts, n_threads=args.threads)
     print("[%s] Running hhblits. . ." % datetime.now())
     b.start() 
     if p.simple_check_db() and p.decompressed():
